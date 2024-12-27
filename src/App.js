@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 import { gapi } from "gapi-script";
+import logo from "./assets/Vince.png";
 
 // Define form fields configuration in the requested order
 const fields = [
@@ -147,6 +148,30 @@ const App = () => {
   );
 };
 
+const Header = () => (
+  <footer className="w-full py-8 mt-10">
+    <div className="container mx-auto px-4">
+      <div className="flex justify-center items-center space-x-8">
+        <img 
+          src={logo} 
+          alt="Sponsor 1"
+          className="h-12 object-contain opacity-80"
+        />
+      </div>
+    </div>
+  </footer>
+);
+
+const Footer = () => (
+  <footer className="w-full py-8 mt-10 border">
+    <div className="container mx-auto px-4">
+      <div className="flex justify-center items-center space-x-8 opacity-50">
+        Vince Warren Pradas 2024
+      </div>
+    </div>
+  </footer>
+);
+
 const LandingPage = ({ prizePool }) => {
   const [teams, setTeams] = useState([]);
   const [teamCount, setTeamCount] = useState(0);
@@ -184,10 +209,11 @@ const LandingPage = ({ prizePool }) => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-4xl font-bold text-gray-800">Tournament</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <Header />
+      <h1 className="text-4xl font-bold text-gray-800">Union MLBB Tournament</h1>
       <h2 className="text-2xl text-gray-600 mt-4">
-        Current Prize Pool: PHP {prizePool.toFixed(2)-500} 
+        Prize Pool will be revealed at the end of the registration
       </h2>
       <span className="text-gray-500">MVP Reward: Buyable Epic skin of choice</span>
       <h3 className="text-xl text-gray-600 mt-2">
@@ -247,6 +273,7 @@ const LandingPage = ({ prizePool }) => {
           </table>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
