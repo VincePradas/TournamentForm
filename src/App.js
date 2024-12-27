@@ -163,11 +163,9 @@ const Header = () => (
 );
 
 const Footer = () => (
-  <footer className="w-full py-8 mt-10 border">
+  <footer className="w-full py-8 mt-10">
     <div className="container mx-auto px-4">
-      <div className="flex justify-center items-center space-x-8 opacity-50">
-        Vince Warren Pradas 2024
-      </div>
+
     </div>
   </footer>
 );
@@ -273,7 +271,7 @@ const LandingPage = ({ prizePool }) => {
           </table>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
