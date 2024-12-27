@@ -9,7 +9,7 @@ import {
 import axios from "axios";
 import { gapi } from "gapi-script";
 import logo from "./assets/Vince.png";
-  
+
 const fields = [
   {
     name: "registrationId",
@@ -207,8 +207,9 @@ const LandingPage = ({ prizePool }) => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <Header />
+      <div className="text-center">
       <h1 className="text-4xl font-bold text-gray-800">
         Union MLBB Tournament
       </h1>
@@ -221,6 +222,7 @@ const LandingPage = ({ prizePool }) => {
       <h3 className="text-xl text-gray-600 mt-2">
         Total Teams Registered: {teamCount}
       </h3>
+      </div>
       <Link
         to="/signup"
         className="mt-8 px-6 py-3 bg-black text-white font-semibold rounded-lg hover:bg-blue-600"
