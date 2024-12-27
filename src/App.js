@@ -9,8 +9,7 @@ import {
 import axios from "axios";
 import { gapi } from "gapi-script";
 import logo from "./assets/Vince.png";
-
-// Define form fields configuration in the requested order
+  
 const fields = [
   {
     name: "registrationId",
@@ -101,7 +100,7 @@ const App = () => {
     const fetchPrizePool = async () => {
       const SHEET_ID = "1YqD6-pyHZsO2mJc-FJeRFov6zKC1-lP9tyx5O8G93WQ";
       const SHEET_NAME = "Sheet2";
-      const range = `${SHEET_NAME}!D2:D`; // Fetching the prize pool column
+      const range = `${SHEET_NAME}!D2:D`;
 
       const response = await axios.get(
         `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}`,
@@ -116,7 +115,10 @@ const App = () => {
       );
 
       const prizePoolData = response.data.values;
-      const totalPrizePool = prizePoolData.reduce((total, row) => total + parseFloat(row[0] || 0), 0);
+      const totalPrizePool = prizePoolData.reduce(
+        (total, row) => total + parseFloat(row[0] || 0),
+        0
+      );
       setPrizePool(totalPrizePool);
       localStorage.setItem("prizePool", totalPrizePool);
     };
@@ -152,8 +154,8 @@ const Header = () => (
   <footer className="w-full py-8 mt-10">
     <div className="container mx-auto px-4">
       <div className="flex justify-center items-center space-x-8">
-        <img 
-          src={logo} 
+        <img
+          src={logo}
           alt="Sponsor 1"
           className="h-12 object-contain opacity-80"
         />
@@ -164,9 +166,7 @@ const Header = () => (
 
 const Footer = () => (
   <footer className="w-full py-8 mt-10">
-    <div className="container mx-auto px-4">
-
-    </div>
+    <div className="container mx-auto px-4"></div>
   </footer>
 );
 
@@ -178,7 +178,7 @@ const LandingPage = ({ prizePool }) => {
     const fetchTeams = async () => {
       const SHEET_ID = "1YqD6-pyHZsO2mJc-FJeRFov6zKC1-lP9tyx5O8G93WQ";
       const SHEET_NAME = "Sheet2";
-      const range = `${SHEET_NAME}!A2:O`; // Fetching all relevant columns
+      const range = `${SHEET_NAME}!A2:O`;
 
       const response = await axios.get(
         `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}`,
@@ -193,10 +193,10 @@ const LandingPage = ({ prizePool }) => {
       );
 
       const teamData = response.data.values
-        ?.filter(row => row[1]) // Filter out empty team names
+        ?.filter((row) => row[1])
         .map((row) => ({
-          name: row[1], // Team name
-          status: row[14] // Team status
+          name: row[1],
+          status: row[14],
         }));
 
       setTeams(teamData || []);
@@ -209,11 +209,15 @@ const LandingPage = ({ prizePool }) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <Header />
-      <h1 className="text-4xl font-bold text-gray-800">Union MLBB Tournament</h1>
+      <h1 className="text-4xl font-bold text-gray-800">
+        Union MLBB Tournament
+      </h1>
       <h2 className="text-2xl text-gray-600 mt-4">
         Prize Pool will be revealed at the end of the registration
       </h2>
-      <span className="text-gray-500">MVP Reward: Buyable Epic skin of choice</span>
+      <span className="text-gray-500">
+        MVP Reward: Buyable Epic skin of choice
+      </span>
       <h3 className="text-xl text-gray-600 mt-2">
         Total Teams Registered: {teamCount}
       </h3>
@@ -223,7 +227,7 @@ const LandingPage = ({ prizePool }) => {
       >
         Sign Up
       </Link>
-      
+
       <div className="w-full max-w-2xl mt-8">
         <h4 className="text-xl font-semibold text-gray-700 mb-4 text-center">
           Registered Teams
@@ -247,7 +251,7 @@ const LandingPage = ({ prizePool }) => {
               {teams.map((team, index) => (
                 <tr
                   key={index}
-                  className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
+                  className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}
                 >
                   <td className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                     {index + 1}
@@ -262,7 +266,10 @@ const LandingPage = ({ prizePool }) => {
               ))}
               {teams.length === 0 && (
                 <tr>
-                  <td colSpan="3" className="px-6 py-4 text-center text-gray-500">
+                  <td
+                    colSpan="3"
+                    className="px-6 py-4 text-center text-gray-500"
+                  >
                     No teams registered yet
                   </td>
                 </tr>
@@ -319,17 +326,15 @@ const RegistrationForm = ({ prizePool, setPrizePool, userEmail }) => {
     const user = GoogleAuth.currentUser.get();
     const token = user.getAuthResponse().access_token;
 
-    // Construct the URL for the Google Sheets API
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}:append?valueInputOption=USER_ENTERED`;
 
-    // Prepare data in the specified order with default values
     const newRow = [
       data.registrationId,
       data.teamName,
       data.email,
       data.fee,
       data.contactNumber,
-      "Pending", // Default payment status
+      "Pending", 
       data.date,
       data.teamCaptain,
       data.member2,
@@ -338,7 +343,7 @@ const RegistrationForm = ({ prizePool, setPrizePool, userEmail }) => {
       data.member5,
       data.sixthMan || "N/A",
       data.paymentMethod,
-      "Idle", // Default team status
+      "Idle",
     ];
 
     await axios.post(
