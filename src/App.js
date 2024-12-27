@@ -28,7 +28,7 @@ const fields = [
   },
   {
     name: "fee",
-    label: "Registration Fee (₱)",
+    label: "Registration Fee",
     type: "number",
     required: true,
     disabled: true,
@@ -240,13 +240,13 @@ const LandingPage = ({ prizePool }) => {
         <h3 className="text-md md:text-base text-gray-800">
           MVP Reward: Buyable Epic skin of your choice
         </h3>
-        <h3 className="text-md md:text-lg text-black mt-4 font-bold">
-        THERE ARE {teamCount} REGISTERED TEAMS
+        <h3 className="text-md md:text-lg text-purple-700 mt-4 font-bold">
+        THERE ARE {teamCount} REGISTERED TEAMS!
         </h3>
       </div>
       <Link
         to="/signup"
-        className="mt-8 px-4 md:px-6 py-2 md:py-3 bg-black text-white text-sm md:text-base font-semibold border-[1px] rounded-lg hover:border-[1px] hover:border-black hover:bg-slate-50 transition-all hover:text-black w-full md:w-auto max-w-xs text-center"
+        className="mt-8 px-4 md:px-6 py-2 md:py-3 bg-slate-50 border-purple-700 text-purple-700 text-sm md:text-base font-semibold border-[1px] rounded-lg hover:border-[1px] hover:border-black hover:bg-black transition-all hover:text-white w-full md:w-auto max-w-xs text-center"
       >
         REGISTER YOUR TEAM
       </Link>
@@ -257,15 +257,15 @@ const LandingPage = ({ prizePool }) => {
         </h4>
         <div className="bg-white rounded-lg shadow overflow-x-auto">
           <table className="min-w-full">
-            <thead className="bg-black text-white">
+            <thead className="bg-purple-600 text-white">
               <tr>
-                <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs md:text-sm font-semibold">
+                <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-white">
                   No.
                 </th>
-                <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs md:text-sm font-semibold">
+                <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-white">
                   Team Name
                 </th>
-                <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs md:text-sm font-semibold">
+                <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-white">
                   Status
                 </th>
               </tr>
@@ -412,7 +412,7 @@ const RegistrationForm = ({ prizePool, setPrizePool, userEmail }) => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center">
+      <h1 className="text-2xl md:text-3xl font-bold text-black mb-6 text-center">
         Tournament Registration
       </h1>
       <form
