@@ -64,7 +64,7 @@ const fields = [
 
 const GCASH_DETAILS = {
   name: "Vince Warren Pradas",
-  number: "0956 563 5353" 
+  number: "0956 563 5353",
 };
 
 const App = () => {
@@ -142,6 +142,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage prizePool={prizePool} />} />
+        <Route path="/home" element={<LandingPage prizePool={prizePool} />} />
         <Route
           path="/signup"
           element={
@@ -177,18 +178,14 @@ const Footer = () => (
   <footer className="w-full py-8 mt-10">
     <div className="container mx-auto px-4">
       <div className="flex justify-center items-center space-x-8 text-sm">
-      <Link
-        to="/privacypolicy"
-        className="text-blue-700 underline"
-        >
-        Privacy and Policy
-      </Link>
-      <Link
-        to="/privacypolicy"
-        className="text-blue-700 underline"
-        >
-        Terms and Conditions
-      </Link>
+        <Link to="/privacypolicy" className="text-blue-700 underline">
+          Privacy and Policy
+        </Link>
+      </div>
+      <div className="flex justify-center items-center space-x-8 text-sm">
+      <Link to="/termsandconditions" className="text-blue-700 underline">
+          Terms and Conditions
+        </Link>
       </div>
     </div>
   </footer>
@@ -238,13 +235,13 @@ const LandingPage = ({ prizePool }) => {
           Union MLBB Tournament
         </h1>
         <h2 className="text-xl md:text-2xl text-gray-800 mt-4">
-          Prize Pool will be revealed at the end of the registration period
+          Cash Prize Pool will be revealed at the end of the registration period
         </h2>
         <h3 className="text-md md:text-base text-gray-800">
           MVP Reward: Buyable Epic skin of your choice
         </h3>
-        <h3 className="text-md md:text-base text-black mt-4">
-          Total Teams Registered: {teamCount}
+        <h3 className="text-md md:text-lg text-black mt-4 font-bold">
+        THERE ARE {teamCount} REGISTERED TEAMS
         </h3>
       </div>
       <Link
@@ -256,7 +253,7 @@ const LandingPage = ({ prizePool }) => {
 
       <div className="w-full max-w-2xl mt-8 px-4">
         <h4 className="text-lg md:text-xl font-semibold text-black mb-4 text-center">
-          REGISTERED TEAMS
+          PARTICIPATING TEAMS
         </h4>
         <div className="bg-white rounded-lg shadow overflow-x-auto">
           <table className="min-w-full">
@@ -292,7 +289,10 @@ const LandingPage = ({ prizePool }) => {
               ))}
               {teams.length === 0 && (
                 <tr>
-                  <td colSpan="3" className="px-6 py-4 text-center text-gray-500">
+                  <td
+                    colSpan="3"
+                    className="px-6 py-4 text-center text-gray-500"
+                  >
                     No teams registered yet
                   </td>
                 </tr>
@@ -357,7 +357,7 @@ const RegistrationForm = ({ prizePool, setPrizePool, userEmail }) => {
       data.email,
       data.fee,
       data.contactNumber,
-      "Pending", 
+      "Pending",
       data.date,
       data.teamCaptain,
       data.member2,
@@ -384,19 +384,21 @@ const RegistrationForm = ({ prizePool, setPrizePool, userEmail }) => {
       setPrizePool(prizePool + 500);
 
       setIsSuccess(true);
-      const baseMessage = `Your team "${formData.teamName}" has been registered successfully!\n\n` +
+      const baseMessage =
+        `Your team "${formData.teamName}" has been registered successfully!\n\n` +
         `Registration ID: ${formData.registrationId}\n\n`;
-      
-      const paymentInstructions = formData.paymentMethod === "GCash" 
-        ? `Please send your payment via GCash:\n` +
-          `Name: ${GCASH_DETAILS.name}\n` +
-          `Number: ${GCASH_DETAILS.number}\n\n` +
-          `Amount: 500\n\n` +
-          `After sending payment, please contact the organizer Vince Warren Pradas on Facebook and provide:\n` +
-          `1. Your Registration ID\n` +
-          `2. Screenshot of GCash payment`
-        : "Please contact the organizer Vince Warren Pradas on Facebook to verify your registration and complete the cash payment.\n\n" +
-          "Make sure to provide your Registration ID when contacting the organizer.";
+
+      const paymentInstructions =
+        formData.paymentMethod === "GCash"
+          ? `Please send your payment via GCash:\n` +
+            `Name: ${GCASH_DETAILS.name}\n` +
+            `Number: ${GCASH_DETAILS.number}\n\n` +
+            `Amount: 500\n\n` +
+            `After sending payment, please contact the organizer Vince Warren Pradas on Facebook and provide:\n` +
+            `1. Your Registration ID\n` +
+            `2. Screenshot of GCash payment`
+          : "Please contact the organizer Vince Warren Pradas on Facebook to verify your registration and complete the cash payment.\n\n" +
+            "Make sure to provide your Registration ID when contacting the organizer.";
 
       setModalMessage(baseMessage + paymentInstructions);
       setShowModal(true);
