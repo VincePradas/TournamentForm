@@ -9,6 +9,8 @@ import {
 import axios from "axios";
 import { gapi } from "gapi-script";
 import logo from "./assets/Vince.png";
+import PrivacyPolicy from "./PrivacyPolicy";
+import TermsAndConditions from "./TermsConditions";
 
 const fields = [
   {
@@ -17,7 +19,6 @@ const fields = [
     type: "text",
     disabled: true,
   },
-  { name: "teamName", label: "Team Name", type: "text", required: true },
   {
     name: "email",
     label: "Email",
@@ -33,6 +34,7 @@ const fields = [
     disabled: true,
     value: 500,
   },
+  { name: "teamName", label: "Team Name", type: "text", required: true },
   {
     name: "contactNumber",
     label: "Contact Number",
@@ -55,10 +57,15 @@ const fields = [
     name: "paymentMethod",
     label: "Payment Method",
     type: "select",
-    options: ["Cash"],
+    options: ["Cash", "GCash"],
     required: true,
   },
 ];
+
+const GCASH_DETAILS = {
+  name: "Vince Warren Pradas",
+  number: "0956 563 5353" 
+};
 
 const App = () => {
   const [prizePool, setPrizePool] = useState(() => {
@@ -145,28 +152,45 @@ const App = () => {
             />
           }
         />
+        <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+        <Route path="/TermsAndConditions" element={<TermsAndConditions />} />
       </Routes>
     </Router>
   );
 };
 
 const Header = () => (
-  <footer className="w-full py-8 mt-10">
+  <header className="w-full py-8 mt-10">
     <div className="container mx-auto px-4">
       <div className="flex justify-center items-center space-x-8">
         <img
           src={logo}
           alt="Sponsor 1"
-          className="h-12 object-contain opacity-80"
+          className="h-12 object-contain opacity-100"
         />
       </div>
     </div>
-  </footer>
+  </header>
 );
 
 const Footer = () => (
   <footer className="w-full py-8 mt-10">
-    <div className="container mx-auto px-4"></div>
+    <div className="container mx-auto px-4">
+      <div className="flex justify-center items-center space-x-8 text-sm">
+      <Link
+        to="/privacypolicy"
+        className="text-blue-700 underline"
+        >
+        Privacy and Policy
+      </Link>
+      <Link
+        to="/privacypolicy"
+        className="text-blue-700 underline"
+        >
+        Terms and Conditions
+      </Link>
+      </div>
+    </div>
   </footer>
 );
 
@@ -209,42 +233,42 @@ const LandingPage = ({ prizePool }) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <Header />
-      <div className="text-center">
-      <h1 className="text-4xl font-bold text-gray-800">
-        Union MLBB Tournament
-      </h1>
-      <h2 className="text-2xl text-gray-600 mt-4">
-        Prize Pool will be revealed at the end of the registration
-      </h2>
-      <span className="text-gray-500">
-        MVP Reward: Buyable Epic skin of choice
-      </span>
-      <h3 className="text-xl text-gray-600 mt-2">
-        Total Teams Registered: {teamCount}
-      </h3>
+      <div className="text-center px-4">
+        <h1 className="text-3xl md:text-4xl font-bold text-black">
+          Union MLBB Tournament
+        </h1>
+        <h2 className="text-xl md:text-2xl text-gray-800 mt-4">
+          Prize Pool will be revealed at the end of the registration period
+        </h2>
+        <h3 className="text-md md:text-base text-gray-800">
+          MVP Reward: Buyable Epic skin of your choice
+        </h3>
+        <h3 className="text-md md:text-base text-black mt-4">
+          Total Teams Registered: {teamCount}
+        </h3>
       </div>
       <Link
         to="/signup"
-        className="mt-8 px-6 py-3 bg-black text-white font-semibold rounded-lg hover:bg-blue-600"
+        className="mt-8 px-4 md:px-6 py-2 md:py-3 bg-black text-white text-sm md:text-base font-semibold border-[1px] rounded-lg hover:border-[1px] hover:border-black hover:bg-slate-50 transition-all hover:text-black w-full md:w-auto max-w-xs text-center"
       >
-        Sign Up
+        REGISTER YOUR TEAM
       </Link>
 
-      <div className="w-full max-w-2xl mt-8">
-        <h4 className="text-xl font-semibold text-gray-700 mb-4 text-center">
-          Registered Teams
+      <div className="w-full max-w-2xl mt-8 px-4">
+        <h4 className="text-lg md:text-xl font-semibold text-black mb-4 text-center">
+          REGISTERED TEAMS
         </h4>
-        <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="bg-white rounded-lg shadow overflow-x-auto">
           <table className="min-w-full">
             <thead className="bg-black text-white">
               <tr>
-                <th className="px-6 py-3 text-left text-sm font-semibold">
+                <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs md:text-sm font-semibold">
                   No.
                 </th>
-                <th className="px-6 py-3 text-left text-sm font-semibold">
+                <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs md:text-sm font-semibold">
                   Team Name
                 </th>
-                <th className="px-6 py-3 text-left text-sm font-semibold">
+                <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs md:text-sm font-semibold">
                   Status
                 </th>
               </tr>
@@ -255,23 +279,20 @@ const LandingPage = ({ prizePool }) => {
                   key={index}
                   className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}
                 >
-                  <td className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                  <td className="px-3 md:px-6 py-2 md:py-4 text-xs md:text-sm text-gray-500">
                     {index + 1}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                  <td className="px-3 md:px-6 py-2 md:py-4 text-xs md:text-sm text-gray-800">
                     {team.name}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                  <td className="px-3 md:px-6 py-2 md:py-4 text-xs md:text-sm text-gray-800">
                     {team.status}
                   </td>
                 </tr>
               ))}
               {teams.length === 0 && (
                 <tr>
-                  <td
-                    colSpan="3"
-                    className="px-6 py-4 text-center text-gray-500"
-                  >
+                  <td colSpan="3" className="px-6 py-4 text-center text-gray-500">
                     No teams registered yet
                   </td>
                 </tr>
@@ -363,12 +384,21 @@ const RegistrationForm = ({ prizePool, setPrizePool, userEmail }) => {
       setPrizePool(prizePool + 500);
 
       setIsSuccess(true);
-      setModalMessage(
-        `Your team "${formData.teamName}" has been registered successfully!\n\n` +
-          `Registration ID: ${formData.registrationId}\n\n` +
-          "Please contact the organizer Vince Warren Pradas on Facebook to verify your registration and complete the cash payment.\n\n" +
-          "Make sure to provide your Registration ID when contacting the organizer."
-      );
+      const baseMessage = `Your team "${formData.teamName}" has been registered successfully!\n\n` +
+        `Registration ID: ${formData.registrationId}\n\n`;
+      
+      const paymentInstructions = formData.paymentMethod === "GCash" 
+        ? `Please send your payment via GCash:\n` +
+          `Name: ${GCASH_DETAILS.name}\n` +
+          `Number: ${GCASH_DETAILS.number}\n\n` +
+          `Amount: 500\n\n` +
+          `After sending payment, please contact the organizer Vince Warren Pradas on Facebook and provide:\n` +
+          `1. Your Registration ID\n` +
+          `2. Screenshot of GCash payment`
+        : "Please contact the organizer Vince Warren Pradas on Facebook to verify your registration and complete the cash payment.\n\n" +
+          "Make sure to provide your Registration ID when contacting the organizer.";
+
+      setModalMessage(baseMessage + paymentInstructions);
       setShowModal(true);
     } catch (error) {
       console.error("Error saving to Google Sheets:", error);
@@ -380,23 +410,25 @@ const RegistrationForm = ({ prizePool, setPrizePool, userEmail }) => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">
+      <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center">
         Tournament Registration
       </h1>
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white p-6 rounded-lg shadow-md"
+        className="w-full max-w-md bg-white p-4 md:p-6 rounded-lg shadow-md"
       >
         {fields.map(
           ({ name, label, type, options, required, disabled, value }) => (
-            <label key={name} className="block mb-4">
-              <span className="text-gray-700 font-semibold">{label}:</span>
+            <label key={name} className="block mb-3 md:mb-4">
+              <span className="text-sm md:text-base text-gray-700 font-semibold">
+                {label}:
+              </span>
               {type === "select" ? (
                 <select
                   name={name}
                   value={formData[name] || ""}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg bg-white"
+                  className="mt-1 block w-full px-3 md:px-4 py-2 text-sm md:text-base border border-gray-300 rounded-lg bg-white"
                   required={required}
                 >
                   <option value="" disabled>
@@ -414,7 +446,7 @@ const RegistrationForm = ({ prizePool, setPrizePool, userEmail }) => {
                   name={name}
                   value={value || formData[name] || ""}
                   onChange={handleChange}
-                  className={`mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg ${
+                  className={`mt-1 block w-full px-3 md:px-4 py-2 text-sm md:text-base border border-gray-300 rounded-lg ${
                     disabled ? "bg-gray-100" : "bg-white"
                   }`}
                   required={required}
@@ -426,7 +458,7 @@ const RegistrationForm = ({ prizePool, setPrizePool, userEmail }) => {
         )}
         <button
           type="submit"
-          className="w-full bg-black text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-600"
+          className="w-full bg-black text-white font-semibold px-4 py-2 rounded-lg border-[1px] hover:bg-slate-50 hover:border-[1px] hover:border-black hover:text-black transition-all text-sm md:text-base"
         >
           Register
         </button>
@@ -448,19 +480,19 @@ const RegistrationForm = ({ prizePool, setPrizePool, userEmail }) => {
 };
 
 const Modal = ({ message, onClose, isSuccess }) => (
-  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-4">
-    <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-4 z-50 overflow-y-auto">
+    <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full m-4">
       <h2
-        className={`text-2xl font-semibold ${
+        className={`text-xl md:text-2xl font-semibold ${
           isSuccess ? "text-green-600" : "text-red-600"
         }`}
       >
         {isSuccess ? "Registration Successful!" : "Registration Failed"}
       </h2>
-      <p className="mt-4 whitespace-pre-line">{message}</p>
+      <p className="mt-4 text-sm md:text-base whitespace-pre-line">{message}</p>
       <button
         onClick={onClose}
-        className="mt-6 w-full py-2 px-4 bg-black text-white font-semibold rounded-lg hover:bg-blue-600"
+        className="mt-6 w-full py-2 px-4 bg-black text-white text-sm md:text-base font-semibold rounded-lg hover:bg-gray-800"
       >
         Close
       </button>
