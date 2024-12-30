@@ -141,7 +141,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/home" element={<LandingPage prizePool={prizePool} />} />
+        <Route path="/" element={<LandingPage prizePool={prizePool} />} />
         <Route
           path="/signup"
           element={
